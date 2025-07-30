@@ -1,0 +1,21 @@
+{
+    "name": "top-github-repositories",
+    "dependencies": {
+        "@emotion/react": "^11.11.0",
+        "@emotion/styled": "^11.11.0",
+        "@mui/icons-material": "^5.15.0",
+        "react-router-dom": "^6.20.0",
+        "concurrently": "^8.2.2"
+    },
+    "scripts": {
+        "start": "echo 'Checking concurrently...' && ls -la node_modules/.bin && npx concurrently \"npm run start:backend\" \"npm run start:frontend\"",
+        "start:backend": "./venv/bin/flask run",
+        "start:frontend": "cd frontend && npm run dev"
+    },
+    "devDependencies": {
+        "eslint-plugin-prettier": "^5.0.0"
+    },
+    "engines": {
+        "node": ">=16.0.0"
+    }
+}
