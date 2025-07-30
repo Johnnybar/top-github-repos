@@ -4,11 +4,11 @@ FROM python:3.11-slim
 # Set working directory
 WORKDIR /app
 
-# Install system dependencies and yarn
+# Install system dependencies and Node.js 20.x
 RUN apt-get update && apt-get install -y \
-    nodejs \
-    npm \
     curl \
+    && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get install -y nodejs \
     && npm install -g yarn \
     && rm -rf /var/lib/apt/lists/*
 
