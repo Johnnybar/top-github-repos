@@ -1,4 +1,4 @@
-import { 
+import {
   Box,
   Container,
   AppBar,
@@ -8,20 +8,18 @@ import {
 import { GithubTable } from "./GithubTable";
 
 const App = () => {
-
-
   return (
     <Container
       maxWidth={false}
       disableGutters
-      sx={{ 
-        height: "100vh", 
-        display: "flex", 
+      sx={{
+        height: "100vh",
+        display: "flex",
         flexDirection: "column",
         width: "100%",
         minWidth: "100%",
         padding: 0,
-        margin: 0
+        margin: 0,
       }}
     >
       <AppBar position="static" color="primary" elevation={2}>
@@ -35,7 +33,7 @@ const App = () => {
           </Typography>
         </Toolbar>
       </AppBar>
-        <GithubTable />
+      <GithubTable />
     </Container>
   );
 };

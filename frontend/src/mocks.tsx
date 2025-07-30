@@ -1,5 +1,7 @@
 
-export const githubReposMock = {
+import { GithubReposMock } from "./types";
+
+export const githubReposMock: GithubReposMock = {
     "items": [
       {
           "id": 78483432,
@@ -11,7 +13,8 @@ export const githubReposMock = {
           "watchers_count": 17590,
           "open_issues_count": 249,
           "owner": {
-              "avatar_url": "https://avatars.githubusercontent.com/u/25557326?v=4"
+              "avatar_url": "https://avatars.githubusercontent.com/u/25557326?v=4",
+              "html_url": "https://github.com/TranslucentTB"
           },
           "description": "A lightweight, customizable, and transparent theme for Windows Taskbar"
       },
@@ -25,7 +28,8 @@ export const githubReposMock = {
           "watchers_count": 9271,
           "open_issues_count": 11,
           "owner": {
-              "avatar_url": "https://avatars.githubusercontent.com/u/23257329?v=4"
+              "avatar_url": "https://avatars.githubusercontent.com/u/23257329?v=4",
+              "html_url": "https://github.com/opendigg"
           },
           "description": "收集、发现、分享 GitHub 上高质量的微信小程序开发资源、实战经验、优秀案例、入门进阶教程等"
       },
@@ -39,7 +43,8 @@ export const githubReposMock = {
           "watchers_count": 6838,
           "open_issues_count": 108,
           "owner": {
-              "avatar_url": "https://avatars.githubusercontent.com/u/20238146?v=4"
+              "avatar_url": "https://avatars.githubusercontent.com/u/20238146?v=4",
+              "html_url": "https://github.com/Meituan-Dianping"
           },
           "description": "美团外卖 Android 客户端 - 美团外卖 Android 客户端，覆盖 Android 9.0 以上系统，支持 Android 10.0 以上系统"
       },
@@ -53,7 +58,8 @@ export const githubReposMock = {
           "watchers_count": 5321,
           "open_issues_count": 94,
           "owner": {
-              "avatar_url": "https://avatars.githubusercontent.com/u/25822731?v=4"
+              "avatar_url": "https://avatars.githubusercontent.com/u/25822731?v=4",
+              "html_url": "https://github.com/prettier"
           },
           "description": "VS Code 的 Prettier 插件"
       },
@@ -67,7 +73,8 @@ export const githubReposMock = {
           "watchers_count": 5067,
           "open_issues_count": 30,
           "owner": {
-              "avatar_url": "https://avatars.githubusercontent.com/u/40567621?v=4"
+              "avatar_url": "https://avatars.githubusercontent.com/u/40567621?v=4",
+              "html_url": "https://github.com/wux-weapp"
           },
           "description": "A UI library for WeChat Mini Programs"
       },
@@ -81,7 +88,8 @@ export const githubReposMock = {
           "watchers_count": 4180,
           "open_issues_count": 161,
           "owner": {
-              "avatar_url": "https://avatars.githubusercontent.com/u/31605584?v=4"
+              "avatar_url": "https://avatars.githubusercontent.com/u/31605584?v=4",
+              "html_url": "https://github.com/lando"
           },
           "description": "A local development environment for Node.js"
       },
@@ -95,7 +103,8 @@ export const githubReposMock = {
           "watchers_count": 2528,
           "open_issues_count": 15,
           "owner": {
-              "avatar_url": "https://avatars.githubusercontent.com/u/17978187?v=4"
+              "avatar_url": "https://avatars.githubusercontent.com/u/17978187?v=4",
+              "html_url": "https://github.com/Blankj"
           },
           "description": "A collection of awesome comment styles"
       },
@@ -109,7 +118,8 @@ export const githubReposMock = {
           "watchers_count": 2127,
           "open_issues_count": 5,
           "owner": {
-              "avatar_url": "https://avatars.githubusercontent.com/u/6707363?v=4"
+              "avatar_url": "https://avatars.githubusercontent.com/u/6707363?v=4",
+              "html_url": "https://github.com/SeanNaren"
           },
           "description": "DeepSpeech PyTorch implementation"
       },
@@ -123,7 +133,8 @@ export const githubReposMock = {
           "watchers_count": 1965,
           "open_issues_count": 13,
           "owner": {
-              "avatar_url": "https://avatars.githubusercontent.com/u/13688605?v=4"
+              "avatar_url": "https://avatars.githubusercontent.com/u/13688605?v=4",
+              "html_url": "https://github.com/ermongroup"
           },
           "description": "CS228 Notes"
       },
@@ -137,7 +148,8 @@ export const githubReposMock = {
           "watchers_count": 1881,
           "open_issues_count": 10,
           "owner": {
-              "avatar_url": "https://avatars.githubusercontent.com/u/31811577?v=4"
+              "avatar_url": "https://avatars.githubusercontent.com/u/31811577?v=4",
+              "html_url": "https://github.com/PokemonUnity"
           },
           "description": "Pokemon Unity"
       }

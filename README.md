@@ -1,4 +1,4 @@
-# Event Finder App
+# Top Github Repos
 
 A Flask-based web application with React frontend 
 

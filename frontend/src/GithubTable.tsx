@@ -1,4 +1,4 @@
-import {  useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import {
   Box,
@@ -11,9 +11,6 @@ import {
   useMediaQuery,
   useTheme,
   Chip,
-  Dialog,
-  Card,
-  CardContent,
   IconButton,
   Button,
   FormControl,
@@ -29,14 +26,14 @@ import {
 import {
   Search,
   Star,
-  Close,
   StarBorder,
   StarRate,
   Terminal,
 } from "@mui/icons-material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { GithubReposData } from "./context/context";
+import { GithubReposData, GithubApiResponse, GithubApiItem, RepoInfoState } from "./types";
 import { githubReposMock } from "./mocks";
+import { RepoDetailsDialog } from "./RepoDetailsDialog";
 
 
 // API function
@@ -49,10 +46,9 @@ const fetchGithubRepos = async (): Promise<GithubReposData[]> => {
   }
 
   const text = await response.text();
-  const data = JSON.parse(text);
-  console.log('data', data);
+  const data: GithubApiResponse = JSON.parse(text);
   
-  const filteredData = data.items.map((item: any, index: number) => ({
+  const filteredData = data.items.map((item: GithubApiItem, index: number) => ({
     id: item.id || index,
     url: item.html_url,
     stargazers_count: item.stargazers_count,
@@ -73,13 +69,9 @@ export const GithubTable = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
-
   const [searchTerm, setSearchTerm] = useState<string>("");
-  const [filteredRows, setFilteredRows] = useState<any[]>([]);
-  const [repoInfoOpen, setRepoInfoOpen] = useState<{
-    id: number | null;
-    open: boolean;
-  }>({ id: null, open: false });
+  const [filteredRows, setFilteredRows] = useState<GithubReposData[]>([]);
+  const [repoInfoOpen, setRepoInfoOpen] = useState<RepoInfoState>({ id: null, open: false });
   const [starredRepos, setStarredRepos] = useState<Set<number>>(new Set());
   const [showStarredOnly, setShowStarredOnly] = useState<boolean>(false);
   const [selectedLanguages, setSelectedLanguages] = useState<string[]>([]);
@@ -155,8 +147,6 @@ export const GithubTable = () => {
       setFilteredRows(filtered);
     }
   }, [githubReposData, searchTerm, showStarredOnly, starredRepos, selectedLanguages]);
-
- 
 
 const columns: GridColDef[] = [
   {
@@ -236,33 +226,6 @@ const columns: GridColDef[] = [
     ),
   },
   {
-    field: "languages",
-    headerName: "Languages",
-    minWidth: 120,
-    renderCell: (params) => {
-      if (!params.value || params.value === null || params.value === undefined) {
-        return <Typography variant="body2" color="text.secondary">N/A</Typography>;
-      } else {
-        return params.value.split(',').map((language: string, index: number) => (
-          <Box key={index} sx={{ display: "flex", flexDirection: "column", gap: 1 }}> 
-            <Chip
-              size="small"
-              icon={<Terminal fontSize="small" />}
-              label={language}
-              variant="outlined"
-              sx={{
-                display: "-webkit-box",
-                WebkitLineClamp: 1,
-                WebkitBoxOrient: "vertical",
-                overflow: "hidden",
-              }}
-            />
-          </Box>
-        ))
-      }
-    },
-  },
-  {
     field: "stargazers_count",
     headerName: "Stars",
     width: 120,
@@ -297,15 +260,12 @@ const columns: GridColDef[] = [
   },
 ]
 
-
   return (
-    <>
     <Container
       maxWidth={false}
       disableGutters
       sx={{ height: "100vh", display: "flex", flexDirection: "column" }}
     >
- 
       {isLoading ? (
         <Box
           sx={{
@@ -421,10 +381,8 @@ const columns: GridColDef[] = [
                   {filteredRows.length} repos found 
               </Typography>
             </Paper>
-
             <Box sx={{ flexGrow: 1, height: isMobile ? "300px" : "auto" }}>
               <DataGrid
-              
                 rows={filteredRows || []}
                 columns={columns}
                 initialState={{
@@ -437,10 +395,10 @@ const columns: GridColDef[] = [
                 }}
                 pageSizeOptions={[10, 25, 50]}
                 disableRowSelectionOnClick={false}
+                hideFooterSelectedRowCount={true}
                 onRowClick={(params) => {
                   setRepoInfoOpen({ id: params.row.id, open: true });
                 }}
-       
                 sx={{
                   border: "none",
                   "& .MuiDataGrid-cell:focus-within": {
@@ -463,100 +421,13 @@ const columns: GridColDef[] = [
             </Box>
           </Box>
         </Box>
-      )} 
-       
+      )}
 
-      {/* Repo Details Dialog */}
-      {repoInfoOpen.id !== null &&
-        githubReposData.find((repo) => repo.id === repoInfoOpen.id) && (
-          <Dialog
-            open={repoInfoOpen.open}
-            onClose={() => setRepoInfoOpen({ id: null, open: false })}
-            maxWidth="sm"
-            fullWidth
-          >
-            {githubReposData.map((repo: GithubReposData) => {
-              if (repo.id === repoInfoOpen.id) {
-                return (
-                  <Card key={repo.id} elevation={0}>
-                    <CardContent sx={{ p: 0 }}>
-                      <Box
-                        sx={{
-                          p: 2,
-                          pb: 1,
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                        }}
-                      >
-                        <img src={repo.owner.avatar_url} alt="avatar" style={{ width: 32, height: 32, borderRadius: "50%" }} />
-                        <Typography
-                          variant="h5"
-                          component="h2"
-                          fontWeight="bold"
-                        >
-                          {repo.name}
-                        </Typography>
-                        
-                        <IconButton onClick={() => setRepoInfoOpen({ id: null, open: false })} size="small">
-                          <Close />
-                        </IconButton>
-                      </Box>
-
-                      <Box sx={{ px: 2, pb: 1 }}>
-                        <Typography variant="subtitle1" color="text.secondary">
-                          {repo.full_name}
-                        </Typography>
-                        <Link href={repo.url} target="_blank" sx={{ textDecoration: "none", overflow: "hidden", textOverflow: "ellipsis", display: "-webkit-box", WebkitLineClamp: 1, WebkitBoxOrient: "vertical", textAlign: "center", width: "100%", pb:1 }}>
-                          {repo.url}
-                        </Link>
-                      </Box>
-
-                      <Box sx={{ px: 2, pb: 2 }}>
-                        <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-                          <Box sx={{ display: "flex", gap: 2 }}>
-                            <Chip
-                              label={`Stars: ${repo.stargazers_count}`}
-                              color="primary"
-                              variant="outlined"
-                              size="small"
-                              sx={{ flex: 1 }}
-                            />
-                            <Chip
-                              label={`Watchers: ${repo.watchers_count}`}
-                              color="secondary"
-                              variant="outlined"
-                              size="small"
-                              sx={{ flex: 1 }}
-                            />
-                          </Box>
-                          <Box sx={{ display: "flex", gap: 2 }}>
-                            <Chip
-                              label={`Language: ${repo.language || 'N/A'}`}
-                              color="info"
-                              variant="outlined"
-                              size="small"
-                              sx={{ flex: 1 }}
-                            />
-                            <Chip
-                              label={`Open Issues: ${repo.open_issues_count}`}
-                              color="warning"
-                              variant="outlined"
-                              size="small"
-                              sx={{ flex: 1 }}
-                            />
-                          </Box>
-                        </Box>
-                      </Box>
-                    </CardContent>
-                  </Card>
-                );
-              }
-              return null;
-            })}
-          </Dialog>
-        )}
-      </Container>
-    </>
+      <RepoDetailsDialog
+        repoInfoOpen={repoInfoOpen}
+        setRepoInfoOpen={setRepoInfoOpen}
+        githubReposData={githubReposData}
+      />
+    </Container>
   );
 };
