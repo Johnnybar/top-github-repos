@@ -1,5 +1,6 @@
 
-import { GithubReposMock } from "./types";
+import { GithubReposMock, GithubReposData, RepoInfoState } from "./types";
+import { vi } from 'vitest';
 
 export const githubReposMock: GithubReposMock = {
     "items": [
@@ -17,6 +18,21 @@ export const githubReposMock: GithubReposMock = {
               "html_url": "https://github.com/TranslucentTB"
           },
           "description": "A lightweight, customizable, and transparent theme for Windows Taskbar"
+      },
+      {
+          "id": 78544867,
+          "full_name": "opendigg/awesome-github-wechat-weapp",
+          "url": "https://api.github.com/repos/opendigg/awesome-github-wechat-weapp",
+          "stargazers_count": 9271,
+          "language": null,
+          "name": "awesome-github-wechat-weapp",
+          "watchers_count": 9271,
+          "open_issues_count": 11,
+          "owner": {
+              "avatar_url": "https://avatars.githubusercontent.com/u/23257329?v=4",
+              "html_url": "https://github.com/opendigg"
+          },
+          "description": "收集、发现、分享 GitHub 上高质量的微信小程序开发资源、实战经验、优秀案例、入门进阶教程等"
       },
       {
           "id": 78544867,
@@ -155,4 +171,63 @@ export const githubReposMock: GithubReposMock = {
       }
   ]
 }
+
+// Test mocks for components
+export const mockGithubTable = () => <div data-testid="github-table">GithubTable Component</div>;
+
+export const mockRepoDetailsDialog = ({ repoInfoOpen, setRepoInfoOpen, githubReposData }: any) => (
+  <div data-testid="repo-details-dialog">
+    RepoDetailsDialog Component
+  </div>
+);
+
+export const mockFetchGithubRepos = vi.fn().mockResolvedValue(githubReposMock);
+
+// Test data for API tests
+export const mockApiResponse = {
+  items: [
+    {
+      id: 123,
+      html_url: 'https://github.com/test-owner/test-repo',
+      stargazers_count: 100,
+      language: 'JavaScript',
+      name: 'test-repo',
+      watchers_count: 50,
+      open_issues_count: 5,
+      description: 'A test repository',
+      owner: {
+        avatar_url: 'https://example.com/avatar.jpg',
+        html_url: 'https://github.com/test-owner'
+      }
+    }
+  ],
+  total_count: 1,
+  incomplete_results: false
+};
+
+// Mock data for RepoDetailsDialog tests
+export const mockRepos: GithubReposData[] = [
+  {
+    id: 1,
+    name: 'test-repo',
+    full_name: 'test-owner/test-repo',
+    description: 'A test repository',
+    url: 'https://github.com/test-owner/test-repo',
+    language: 'JavaScript',
+    stargazers_count: 100,
+    watchers_count: 50,
+    open_issues_count: 5,
+    owner: {
+      avatar_url: 'https://example.com/avatar.jpg',
+      html_url: 'https://github.com/test-owner'
+    }
+  }
+];
+
+export const mockRepoInfoOpen: RepoInfoState = {
+  id: 1,
+  open: true
+};
+
+export const mockSetRepoInfoOpen = vi.fn();
 

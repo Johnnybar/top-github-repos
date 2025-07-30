@@ -11,6 +11,7 @@ import {
 import { Close } from "@mui/icons-material";
 import { GithubReposData, RepoInfoState } from "./types";
 import { styles } from "./styles";
+import { isNil } from "ramda";
 
 interface RepoDetailsDialogProps {
   repoInfoOpen: RepoInfoState;
@@ -29,7 +30,7 @@ export const RepoDetailsDialog = ({
 
   return (
     <>
-      {repoInfoOpen.id !== null &&
+      {!isNil(repoInfoOpen.id) &&
         githubReposData.find((repo) => repo.id === repoInfoOpen.id) && (
           <Dialog
             open={repoInfoOpen.open}
@@ -100,7 +101,7 @@ export const RepoDetailsDialog = ({
                           </Box>
                           <Box sx={styles.chipsRow}>
                             <Chip
-                              label={`Language: ${repo.language || "N/A"}`}
+                              label={`Language: ${!isNil(repo.language) ? repo.language : "N/A"}`}
                               color="info"
                               variant="outlined"
                               size="small"

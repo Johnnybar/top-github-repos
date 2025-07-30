@@ -28,43 +28,14 @@ import {
   Star,
   StarBorder,
   StarRate,
-  Terminal,
 } from "@mui/icons-material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { GithubReposData, GithubApiResponse, GithubApiItem, RepoInfoState } from "./types";
-import { githubReposMock } from "./mocks";
+import { GithubReposData, RepoInfoState } from "./types";
 import { RepoDetailsDialog } from "./RepoDetailsDialog";
 import { styles } from "./styles";
-
-
-// API function
-const fetchGithubRepos = async (): Promise<GithubReposData[]> => {
-  const response = await fetch("/api/github-repos");
-  
-  if (!response.ok) {
-    //TODO - Should we use fallback or throw an error as well?
-    return githubReposMock.items as GithubReposData[];
-  }
-
-  const text = await response.text();
-  const data: GithubApiResponse = JSON.parse(text);
-  
-  const filteredData = data.items.map((item: GithubApiItem, index: number) => ({
-    id: item.id || index,
-    url: item.html_url,
-    stargazers_count: item.stargazers_count,
-    language: item.language || 'N/A',
-    name: item.name,
-    watchers_count: item.watchers_count,
-    open_issues_count: item.open_issues_count,
-    description: item.description,
-    owner: {
-      avatar_url: item.owner.avatar_url,
-    },
-  }));
-  
-  return filteredData as GithubReposData[];
-};
+import { fetchGithubRepos } from "./api";
+//These ramda functions are used to check for null and undefined
+import { isNil, isEmpty } from "ramda";
 
 export const GithubTable = () => {
   const theme = useTheme();
@@ -113,10 +84,10 @@ export const GithubTable = () => {
 
   // Extract languages whenever data changes
   useEffect(() => {
-    if (Array.isArray(githubReposData) && githubReposData.length > 0) {
+    if (Array.isArray(githubReposData) && !isEmpty(githubReposData)) {
       const languages: string[] = [];
       githubReposData.forEach((item: GithubReposData) => {
-        if (item.language && !languages.includes(item.language)) {
+        if (!isNil(item.language) && !languages.includes(item.language)) {
           languages.push(item.language);
         }
       });
@@ -129,18 +100,17 @@ export const GithubTable = () => {
 
   // Filter data when search term or data changes
   useEffect(() => {
-    
-    if (Array.isArray(githubReposData) && githubReposData.length > 0) {
+    if (Array.isArray(githubReposData) && !isEmpty(githubReposData)) {
       let filtered = githubReposData.filter((repo: GithubReposData) => {
-        const matchesSearch = repo.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          repo.full_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          repo.language?.toLowerCase().includes(searchTerm.toLowerCase());
+        const matchesSearch = (!isNil(repo.name) && repo.name.toLowerCase().includes(searchTerm.toLowerCase())) ||
+          (!isNil(repo.full_name) && repo.full_name.toLowerCase().includes(searchTerm.toLowerCase())) ||
+          (!isNil(repo.language) && repo.language.toLowerCase().includes(searchTerm.toLowerCase()));
         
-        const matchesLanguage = selectedLanguages.length === 0 || (repo.language && selectedLanguages.includes(repo.language || ''));
+        const matchesLanguage = isEmpty(selectedLanguages) || (!isNil(repo.language) && selectedLanguages.includes(repo.language));
         
         // If showing starred only, also check if repo is starred
         if (showStarredOnly) {
-          return matchesSearch && matchesLanguage && repo.id && starredRepos.has(repo.id);
+          return matchesSearch && matchesLanguage && !isNil(repo.id) && starredRepos.has(repo.id);
         }
         
         return matchesSearch && matchesLanguage;
@@ -149,6 +119,7 @@ export const GithubTable = () => {
     }
   }, [githubReposData, searchTerm, showStarredOnly, starredRepos, selectedLanguages]);
 
+  //TODO - move to separate file?
 const columns: GridColDef[] = [
   {
     field: "star",
@@ -163,7 +134,7 @@ const columns: GridColDef[] = [
         size="small"
         onClick={(e) => {
           e.stopPropagation();
-          if (params.row.id) {
+          if (!isNil(params.row.id)) {
             handleStarToggle(params.row.id);
           }
         }}
@@ -273,14 +244,14 @@ const columns: GridColDef[] = [
         >
           <CircularProgress color="inherit" />
         </Box>
-      ) : (
-        <Box
-          sx={styles.mainBox(isMobile)}
-        >
-          {/* Table Section */}
+              ) : (
           <Box
-            sx={styles.tableSection(isMobile)}
+            sx={styles.mainBox(isMobile)}
           >
+            {/* Table Section */}
+            <Box
+              sx={styles.tableSection(isMobile)}
+            >
             <Paper
               elevation={0}
               sx={styles.paper}
@@ -378,7 +349,9 @@ const columns: GridColDef[] = [
                 disableRowSelectionOnClick={false}
                 hideFooterSelectedRowCount={true}
                 onRowClick={(params) => {
-                  setRepoInfoOpen({ id: params.row.id, open: true });
+                  if (!isNil(params.row.id)) {
+                    setRepoInfoOpen({ id: params.row.id, open: true });
+                  }
                 }}
                 sx={styles.dataGrid}
               />

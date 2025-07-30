@@ -37,12 +37,12 @@ export const styles = {
     width: "100%",
     display: "flex",
     flexDirection: "column",
-    borderRight: isMobile ? "none" : "1px solid #e0e0e0",
+    borderRight: isMobile ? "none" : "0.0625rem solid #e0e0e0",
   }),
   paper: {
     p: 2,
     bgcolor: "background.default",
-    borderBottom: "1px solid #e0e0e0",
+    borderBottom: "0.0625rem solid #e0e0e0",
   },
   controlsBox: {
     display: "flex",
@@ -60,14 +60,14 @@ export const styles = {
     alignItems: "flex-end",
   },
   formControl: {
-    minWidth: 200,
+    minWidth: "12.5rem",
   },
   clearButton: {
-    height: 40,
+    height: "2.5rem",
   },
   dataGridContainer: (isMobile: boolean) => ({
     flexGrow: 1,
-    height: isMobile ? "300px" : "auto",
+    height: isMobile ? "18.75rem" : "auto",
   }),
   dataGrid: {
     border: "none",
