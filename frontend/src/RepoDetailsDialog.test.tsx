@@ -1,7 +1,8 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { vi, describe, it, expect } from 'vitest';
 import { RepoDetailsDialog } from './RepoDetailsDialog';
-import { mockRepos, mockRepoInfoOpen, mockSetRepoInfoOpen } from './mocks';
+import { mockRepos, mockRepoInfoOpen } from './mocks';
+import { mockSetRepoInfoOpen } from './test-mocks';
 
 describe('RepoDetailsDialog Component', () => {
   it('should render without crashing', () => {

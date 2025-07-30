@@ -2,7 +2,8 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { vi, describe, it, expect } from 'vitest';
 import { GithubTable } from './GithubTable';
-import { mockRepoDetailsDialog, mockFetchGithubRepos } from './mocks';
+import { mockRepoDetailsDialog } from './mocks';
+import { mockFetchGithubRepos } from './test-mocks';
 
 // Mock the RepoDetailsDialog component
 vi.mock('./RepoDetailsDialog', () => ({

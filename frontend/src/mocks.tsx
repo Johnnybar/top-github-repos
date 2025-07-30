@@ -1,6 +1,5 @@
 
 import { GithubReposMock, GithubReposData, RepoInfoState } from "./types";
-import { vi } from 'vitest';
 
 export const githubReposMock: GithubReposMock = {
     "items": [
@@ -181,8 +180,6 @@ export const mockRepoDetailsDialog = ({ repoInfoOpen, setRepoInfoOpen, githubRep
   </div>
 );
 
-export const mockFetchGithubRepos = vi.fn().mockResolvedValue(githubReposMock);
-
 // Test data for API tests
 export const mockApiResponse = {
   items: [
@@ -228,6 +225,4 @@ export const mockRepoInfoOpen: RepoInfoState = {
   id: 1,
   open: true
 };
-
-export const mockSetRepoInfoOpen = vi.fn();
 
