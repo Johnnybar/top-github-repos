@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import { Close } from "@mui/icons-material";
 import { GithubReposData, RepoInfoState } from "./types";
+import { styles } from "./styles";
 
 interface RepoDetailsDialogProps {
   repoInfoOpen: RepoInfoState;
@@ -40,15 +41,9 @@ export const RepoDetailsDialog = ({
               if (repo.id === repoInfoOpen.id) {
                 return (
                   <Card key={repo.id} elevation={0}>
-                    <CardContent sx={{ p: 0 }}>
+                    <CardContent sx={styles.cardContent}>
                       <Box
-                        sx={{
-                          p: 2,
-                          pb: 1,
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                        }}
+                        sx={styles.headerBox}
                       >
                         <img
                           src={repo.owner.avatar_url}
@@ -72,61 +67,51 @@ export const RepoDetailsDialog = ({
                         </IconButton>
                       </Box>
 
-                      <Box sx={{ px: 2, pb: 1 }}>
+                      <Box sx={styles.subtitleBox}>
                         <Typography variant="subtitle1" color="text.secondary">
                           {repo.full_name}
                         </Typography>
                         <Link
                           href={repo.url}
                           target="_blank"
-                          sx={{
-                            textDecoration: "none",
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                            display: "-webkit-box",
-                            WebkitLineClamp: 1,
-                            WebkitBoxOrient: "vertical",
-                            textAlign: "center",
-                            width: "100%",
-                            pb: 1,
-                          }}
+                          sx={styles.dialogLink}
                         >
                           {repo.url}
                         </Link>
                       </Box>
 
-                      <Box sx={{ px: 2, pb: 2 }}>
-                        <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-                          <Box sx={{ display: "flex", gap: 2 }}>
+                      <Box sx={styles.linkBox}>
+                        <Box sx={styles.chipsContainer}>
+                          <Box sx={styles.chipsRow}>
                             <Chip
                               label={`Stars: ${repo.stargazers_count}`}
                               color="primary"
                               variant="outlined"
                               size="small"
-                              sx={{ flex: 1 }}
+                              sx={styles.chip}
                             />
                             <Chip
                               label={`Watchers: ${repo.watchers_count}`}
                               color="secondary"
                               variant="outlined"
                               size="small"
-                              sx={{ flex: 1 }}
+                              sx={styles.chip}
                             />
                           </Box>
-                          <Box sx={{ display: "flex", gap: 2 }}>
+                          <Box sx={styles.chipsRow}>
                             <Chip
                               label={`Language: ${repo.language || "N/A"}`}
                               color="info"
                               variant="outlined"
                               size="small"
-                              sx={{ flex: 1 }}
+                              sx={styles.chip}
                             />
                             <Chip
                               label={`Open Issues: ${repo.open_issues_count}`}
                               color="warning"
                               variant="outlined"
                               size="small"
-                              sx={{ flex: 1 }}
+                              sx={styles.chip}
                             />
                           </Box>
                         </Box>

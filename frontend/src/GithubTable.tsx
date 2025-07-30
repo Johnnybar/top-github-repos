@@ -34,6 +34,7 @@ import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { GithubReposData, GithubApiResponse, GithubApiItem, RepoInfoState } from "./types";
 import { githubReposMock } from "./mocks";
 import { RepoDetailsDialog } from "./RepoDetailsDialog";
+import { styles } from "./styles";
 
 
 // API function
@@ -181,7 +182,7 @@ const columns: GridColDef[] = [
     filterable: false,
     renderCell: (params) => (
       <Tooltip title={params.value}>
-        <Typography variant="body2" color="text.secondary" sx={{ whiteSpace: "pre-wrap", overflow: "hidden", textOverflow: "ellipsis", display: "-webkit-box", WebkitLineClamp: 1, WebkitBoxOrient: "vertical" }}>
+        <Typography variant="body2" color="text.secondary" sx={styles.nameCell}>
           {params.value}
         </Typography>
       </Tooltip>
@@ -192,7 +193,7 @@ const columns: GridColDef[] = [
     width: 200,
     renderCell: (params) => (
       <Tooltip title={params.value}>
-        <Typography variant="body2" color="text.secondary" sx={{ whiteSpace: "pre-wrap", overflow: "hidden", textOverflow: "ellipsis", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical" }}>
+        <Typography variant="body2" color="text.secondary" sx={styles.descriptionCell}>
           {params.value}
         </Typography>
       </Tooltip>
@@ -206,7 +207,7 @@ const columns: GridColDef[] = [
     filterable: false,
     // minWidth: 150,
     renderCell: (params) => (
-      <Link href={params.value} target="_blank" sx={{ textDecoration: "none", overflow: "hidden", textOverflow: "ellipsis", display: "-webkit-box", WebkitLineClamp: 1, WebkitBoxOrient: "vertical" }}>
+      <Link href={params.value} target="_blank" sx={styles.urlCell}>
         {params.value}
       </Link>
     ),
@@ -264,47 +265,27 @@ const columns: GridColDef[] = [
     <Container
       maxWidth={false}
       disableGutters
-      sx={{ height: "100vh", display: "flex", flexDirection: "column" }}
+      sx={styles.tableContainer}
     >
       {isLoading ? (
         <Box
-          sx={{
-            flexGrow: 1,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            bgcolor: "background.default",
-            height: "100%",
-          }}
+          sx={styles.loadingBox}
         >
           <CircularProgress color="inherit" />
         </Box>
       ) : (
         <Box
-          sx={{
-            flexGrow: 1,
-            display: "flex",
-            flexDirection: isMobile ? "column" : "row",
-          }}
+          sx={styles.mainBox(isMobile)}
         >
           {/* Table Section */}
           <Box
-            sx={{
-              width: "100%",
-              display: "flex",
-              flexDirection: "column",
-              borderRight: isMobile ? "none" : "1px solid #e0e0e0",
-            }}
+            sx={styles.tableSection(isMobile)}
           >
             <Paper
               elevation={0}
-              sx={{
-                p: 2,
-                bgcolor: "background.default",
-                borderBottom: "1px solid #e0e0e0",
-              }}
+              sx={styles.paper}
             >
-              <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 2 }}>
+              <Box sx={styles.controlsBox}>
              
                 <Button
                   variant={showStarredOnly ? "contained" : "outlined"}
@@ -322,7 +303,7 @@ const columns: GridColDef[] = [
                 placeholder="Search repositories..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                sx={{ mb: 1 }}
+                sx={styles.searchTextField}
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
@@ -331,8 +312,8 @@ const columns: GridColDef[] = [
                   ),
                 }}
               />
-              <Box sx={{ display: "flex", gap: 2, mb: 1, alignItems: "flex-end" }}>
-                <FormControl size="small" sx={{ minWidth: 200 }}>
+              <Box sx={styles.filtersBox}>
+                <FormControl size="small" sx={styles.formControl}>
                   <InputLabel>Language</InputLabel>
                  
                   <Select
@@ -371,7 +352,7 @@ const columns: GridColDef[] = [
                     size="small"
                     variant="outlined"
                     onClick={() => setSelectedLanguages([])}
-                    sx={{ height: 40 }}
+                    sx={styles.clearButton}
                   >
                     Clear All
                   </Button>
@@ -381,7 +362,7 @@ const columns: GridColDef[] = [
                   {filteredRows.length} repos found 
               </Typography>
             </Paper>
-            <Box sx={{ flexGrow: 1, height: isMobile ? "300px" : "auto" }}>
+            <Box sx={styles.dataGridContainer(isMobile)}>
               <DataGrid
                 rows={filteredRows || []}
                 columns={columns}
@@ -399,24 +380,7 @@ const columns: GridColDef[] = [
                 onRowClick={(params) => {
                   setRepoInfoOpen({ id: params.row.id, open: true });
                 }}
-                sx={{
-                  border: "none",
-                  "& .MuiDataGrid-cell:focus-within": {
-                    outline: "none",
-                  },
-                  "& .MuiDataGrid-row:hover": {
-                    backgroundColor: "rgba(25, 118, 210, 0.04)",
-                    cursor: "pointer",
-                  },
-                  "& .selected-row": {
-                    backgroundColor: "rgba(25, 118, 210, 0.12) !important",
-                  },
-                  "& .MuiDataGrid-columnHeaders": {
-                    backgroundColor: "rgba(25, 118, 210, 0.08)",
-                    color: "text.primary",
-                    fontWeight: "bold",
-                  },
-                }}
+                sx={styles.dataGrid}
               />
             </Box>
           </Box>

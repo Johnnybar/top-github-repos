@@ -6,28 +6,21 @@ import {
   Typography,
 } from "@mui/material";
 import { GithubTable } from "./GithubTable";
+import { styles } from "./styles";
 
 const App = () => {
   return (
     <Container
       maxWidth={false}
       disableGutters
-      sx={{
-        height: "100vh",
-        display: "flex",
-        flexDirection: "column",
-        width: "100%",
-        minWidth: "100%",
-        padding: 0,
-        margin: 0,
-      }}
+      sx={styles.container}
     >
       <AppBar position="static" color="primary" elevation={2}>
         <Toolbar>
           <Typography
             variant="h6"
             component="div"
-            sx={{ flexGrow: 1, fontWeight: 600 }}
+            sx={styles.appBarTitle}
           >
             Most popular Github Repositories
           </Typography>
