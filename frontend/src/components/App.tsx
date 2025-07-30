@@ -4,8 +4,8 @@ import {
   Toolbar,
   Typography,
 } from "@mui/material";
-import { GithubTable } from "./GithubTable";
-import { styles } from "./styles";
+import { GithubReposDashboard } from "./GithubReposDashboard";
+import { styles } from "../styles";
 
 const App = () => {
   return (
@@ -25,7 +25,7 @@ const App = () => {
           </Typography>
         </Toolbar>
       </AppBar>
-      <GithubTable />
+      <GithubReposDashboard />
     </Container>
   );
 };

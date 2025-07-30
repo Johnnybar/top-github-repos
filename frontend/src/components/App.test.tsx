@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { vi, describe, it, expect } from 'vitest';
 import App from './App';
-import { mockGithubTable } from './mocks';
+import { mockGithubTable } from '../mocks';
 
 // Mock the GithubTable component
 vi.mock('./GithubTable', () => ({
