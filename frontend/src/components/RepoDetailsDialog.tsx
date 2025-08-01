@@ -69,9 +69,6 @@ export const RepoDetailsDialog = ({
                       </Box>
 
                       <Box sx={styles.subtitleBox}>
-                        <Typography variant="subtitle1" color="text.secondary">
-                          {repo.full_name}
-                        </Typography>
                         <Link
                           href={repo.clone_url}
                           target="_blank"
