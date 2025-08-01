@@ -60,7 +60,7 @@ npm run start
 **Fly.io**
 - I've used Fly.io before and it's worked well for me
 - Great for full-stack apps
-- Simple deployment process that actually debugs (and does it well)
+- Simple deployment process that also debugs (and does it well)
 
 ### Project Structure
 ```
@@ -87,7 +87,7 @@ top-github-repos/
 - **Styles**: I moved all styles into the `style/` folder instead of using inline `sx` props. Easy to maintain and update global styles (not always the best choice, but tried to fit the "good class naming" requirement). Used REM over PX for more responsiveness and accessibility.
 - **Types**: Shared TypeScript definitions
 
-**Why this structure **
+**Why this structure**
 - Easy to find, debug and modify specific functionality
 - Clear separation of concerns between data, presentation, and business logic
 - Very easy to understand and maintain, and scales well
@@ -109,7 +109,7 @@ top-github-repos/
 
 ## Other Considerations
 
-**Languages Field**: I considered improving the languages field by using GitHub's additional API endpoint that fetches ALL languages used in a repository (through the `languages_url` property from the API response). However, this endpoint had rate limiting issues, so would have possibly added to inconsistent and unreliable app functionality. Using the primary language from the main response seemed more straightforward for our use case.
-- **Testing**: I chose a simple testing approach for our simpler components that don't contain much or any business logic. More testing could have been added there but again, this seemed suitable for the current use case.
+**Languages Field**: I considered improving the languages field by using GitHub's additional API endpoint that fetches ALL languages used in a repository (through the `languages_url` property from the API response). However, this endpoint had rate limiting issues, so would have possibly added to inconsistent and unreliable app functionality. 
+**Testing**: I chose a simple testing approach for our simpler components that don't contain much or any business logic. More testing could have been added there but again, this seemed suitable for the current use case.
 
 
