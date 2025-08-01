@@ -1,9 +1,10 @@
 import { Box, Typography, Chip, IconButton, Tooltip, Link } from "@mui/material";
-import { Star, StarBorder, StarRate } from "@mui/icons-material";
+import { Star, StarBorder, StarRate, ContentCopy, OpenInNew } from "@mui/icons-material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { GithubReposData, RepoInfoState } from "../types";
-import { styles } from "../styles";
+import { styles } from "../style";
 import { isNil } from "ramda";
+import { useState } from "react";
 
 interface ReposTableProps {
   filteredRows: GithubReposData[];
@@ -20,6 +21,20 @@ export const ReposTable = ({
   onRowClick,
   isMobile,
 }: ReposTableProps) => {
+  const [copyFeedback, setCopyFeedback] = useState<{ [key: string]: boolean }>({});
+
+  const handleCopyToClipboard = async (url: string, repoId: number) => {
+    try {
+      await navigator.clipboard.writeText(url);
+      setCopyFeedback(prev => ({ ...prev, [repoId]: true }));
+      setTimeout(() => {
+        setCopyFeedback(prev => ({ ...prev, [repoId]: false }));
+      }, 2000);
+    } catch (err) {
+      console.error('Failed to copy to clipboard:', err);
+    }
+  };
+
   const columns: GridColDef[] = [
     {
       field: "star",
@@ -48,7 +63,8 @@ export const ReposTable = ({
       field: "name",
       headerName: "Name",
       flex: 1,
-      maxWidth: 200,
+      minWidth: 150,
+      maxWidth: 250,
       filterable: false,
       renderCell: (params) => (
         <Tooltip title={params.value}>
@@ -61,7 +77,9 @@ export const ReposTable = ({
     {
       field: "description",
       headerName: "Description",
-      width: 200,
+      flex: 2,
+      minWidth: 200,
+      maxWidth: 400,
       renderCell: (params) => (
         <Tooltip title={params.value}>
           <Typography variant="body2" color="text.secondary" sx={styles.descriptionCell}>
@@ -74,19 +92,54 @@ export const ReposTable = ({
       field: "url",
       headerName: "URL",
       flex: 1,
+      minWidth: 150,
       sortable: false,
       filterable: false,
       renderCell: (params) => (
-        <Link href={params.value} target="_blank" sx={styles.urlCell}>
-          {params.value}
-        </Link>
+        <Box sx={styles.urlCellContainer}>
+          <Typography 
+            variant="body2" 
+            color="text.secondary" 
+            sx={{ 
+              ...styles.urlCell, 
+              ...styles.urlCellText
+            }}
+          >
+            {params.value.replace('https://', '')}
+          </Typography>
+          <Box sx={styles.urlButtonsContainer}>
+            <Tooltip title={copyFeedback[params.row.id] ? "Copied!" : "Copy URL"}>
+              <IconButton
+                size="small"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleCopyToClipboard(params.value, params.row.id);
+                }}
+                color={copyFeedback[params.row.id] ? "success" : "default"}
+              >
+                <ContentCopy fontSize="small" />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Open in new tab">
+              <IconButton
+                size="small"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  window.open(params.value, '_blank');
+                }}
+                color="primary"
+              >
+                <OpenInNew fontSize="small" />
+              </IconButton>
+            </Tooltip>
+          </Box>
+        </Box>
       ),
     },
     {
       field: "language",
-      headerName: "language",
-      flex: 1,
-      minWidth: 150,
+      headerName: "Language",
+      width: 120,
       filterable: false,
       renderCell: (params) => (
         <Chip size="small" label={params.value} variant="outlined" />
@@ -125,15 +178,14 @@ export const ReposTable = ({
     {
       field: "open_issues_count",
       headerName: "Open Issues",
-      flex: 1,
-      minWidth: 150,
+      width: 120,
       filterable: false,
     },
   ];
 
   return (
     <>
-      <Typography variant="caption" color="text.secondary">
+      <Typography variant="caption" color="text.secondary" sx={styles.caption}>
         {filteredRows.length} repos found
       </Typography>
       <Box sx={styles.dataGridContainer(isMobile)}>

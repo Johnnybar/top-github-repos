@@ -18,7 +18,6 @@ def get_github_repos():
 
 # Frontend routes
 @app.route("/")
-@app.route("/combined")
 def serve_react():
     return send_from_directory(app.static_folder, "index.html")
 

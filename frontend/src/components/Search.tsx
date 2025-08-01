@@ -1,6 +1,6 @@
 import { TextField, InputAdornment } from "@mui/material";
 import { Search as SearchIcon } from "@mui/icons-material";
-import { styles } from "../styles";
+import { styles } from "../style";
 
 interface SearchProps {
   searchTerm: string;

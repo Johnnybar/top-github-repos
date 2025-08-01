@@ -3,13 +3,13 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import App from "./components/App";
-import "./index.css";
+import "./style/main.css";
 
-// Create a client
+// Create a react query client that refreshes every 5 minutes, otherwise shows already cached data
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 5 * 60 * 1000, // 5 minutes
+      staleTime: 5 * 60 * 1000, 
       retry: 1,
     },
   },

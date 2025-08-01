@@ -172,7 +172,7 @@ export const githubReposMock: GithubReposMock = {
 }
 
 // Test mocks for components
-export const mockGithubTable = () => <div data-testid="github-table">GithubTable Component</div>;
+export const mockGithubReposDashboard = () => <div data-testid="github-repos-dashboard">GithubReposDashboard Component</div>;
 
 export const mockRepoDetailsDialog = ({ repoInfoOpen, setRepoInfoOpen, githubReposData }: any) => (
   <div data-testid="repo-details-dialog">

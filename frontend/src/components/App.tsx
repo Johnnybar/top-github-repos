@@ -5,7 +5,7 @@ import {
   Typography,
 } from "@mui/material";
 import { GithubReposDashboard } from "./GithubReposDashboard";
-import { styles } from "../styles";
+import { styles } from "../style";
 
 const App = () => {
   return (

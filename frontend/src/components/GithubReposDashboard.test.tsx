@@ -12,8 +12,8 @@ vi.mock('./RepoDetailsDialog', () => ({
   }
 }));
 
-// Mock the API
-vi.mock('../api', () => ({
+// Mock the API service
+vi.mock('../services/api', () => ({
   fetchGithubRepos: () => {
     return mockFetchGithubRepos();
   }

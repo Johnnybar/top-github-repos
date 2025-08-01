@@ -14,7 +14,7 @@ export const styles = {
     fontWeight: 600,
   },
 
-  // GithubTable.tsx styles
+  // GithubReposDashboard.tsx styles
   tableContainer: {
     height: "100vh",
     display: "flex",
@@ -50,9 +50,13 @@ export const styles = {
     alignItems: "center",
     mb: 2,
   },
+
+  // Search.tsx styles
   searchTextField: {
     mb: 1,
   },
+
+  // LanguageFilter.tsx styles
   filtersBox: {
     display: "flex",
     gap: 2,
@@ -65,6 +69,13 @@ export const styles = {
   clearButton: {
     height: "2.5rem",
   },
+  languageChipsContainer: {
+    display: "flex",
+    flexWrap: "wrap",
+    gap: 0.5,
+  },
+
+  // ReposTable.tsx styles
   dataGridContainer: (isMobile: boolean) => ({
     flexGrow: 1,
     height: isMobile ? "18.75rem" : "auto",
@@ -87,6 +98,11 @@ export const styles = {
       fontWeight: "bold",
     },
   },
+  caption: {
+    ml: 2,
+  },
+
+  // ReposTable.tsx cell styles
   nameCell: {
     whiteSpace: "pre-wrap",
     overflow: "hidden",
@@ -110,6 +126,20 @@ export const styles = {
     display: "-webkit-box",
     WebkitLineClamp: 1,
     WebkitBoxOrient: "vertical",
+  },
+  urlCellContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 1,
+    width: '100%',
+  },
+  urlCellText: {
+    flex: 1,
+    fontSize: '0.75rem',
+  },
+  urlButtonsContainer: {
+    display: 'flex',
+    gap: 0.5,
   },
 
   // RepoDetailsDialog.tsx styles
@@ -153,5 +183,14 @@ export const styles = {
     textAlign: "center",
     width: "100%",
     pb: 1,
+  },
+
+  // Error handling styles
+  errorAlert: {
+    maxWidth: 600,
+    width: '100%',
+  },
+  errorMessageBox: {
+    mt: 1,
   },
 }; 

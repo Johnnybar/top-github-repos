@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { Close } from "@mui/icons-material";
 import { GithubReposData, RepoInfoState } from "../types";
-import { styles } from "../styles";
+import { styles } from "../style";
 import { isNil } from "ramda";
 
 interface RepoDetailsDialogProps {

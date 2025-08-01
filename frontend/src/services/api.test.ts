@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { fetchGithubRepos } from './api';
-import { githubReposMock } from './mocks';
+import { githubReposMock } from '../mocks';
 
 // Mock fetch globally
 global.fetch = vi.fn();
@@ -25,7 +25,7 @@ describe('API Functions', () => {
     });
 
     it('should process successful API response correctly', async () => {
-      const { mockApiResponse } = await import('./mocks');
+      const { mockApiResponse } = await import('../mocks');
 
       (global.fetch as any).mockResolvedValueOnce({
         ok: true,

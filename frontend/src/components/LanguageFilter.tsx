@@ -10,7 +10,7 @@ import {
   Chip,
   Button,
 } from "@mui/material";
-import { styles } from "../styles";
+import { styles } from "../style";
 
 interface LanguageFilterProps {
   selectedLanguages: string[];
@@ -41,7 +41,7 @@ export const LanguageFilter = ({
             )
           }
           renderValue={(selected) => (
-            <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+            <Box sx={styles.languageChipsContainer}>
               {selected.map((value) => (
                 <Chip key={value} label={value} />
               ))}

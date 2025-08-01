@@ -1,130 +1,115 @@
-# Top Github Repos
+# Top GitHub Repos - Temporary README
 
-A Flask-based web application with React frontend 
+## How to Run the App
 
-## Features
-
-- Flask backend API
-- React frontend with Material-UI
-- Repo search functionality
-
-## Local Development
-
-### Prerequisites
-
-- Python 3.11+
+### Requirementss
+- Python 3.8+
 - Node.js 16+
-- Yarn
+- npm or yarn
 
-### Setup
-
-1. Install Python dependencies:
+### Backend Setup
 ```bash
+# Install Python dependencies
 pip install -r requirements.txt
 ```
 
-2. Install Node.js dependencies:
+### Frontend Setup
 ```bash
-yarn install
-cd frontend && yarn install
+# Install root dependencies
+npm install
+
+# Frontend dependencies
+cd frontend
+npm install
+
+# Start the server + Frontend on root
+npm run start
 ```
 
-3. Start the development server:
-```bash
-yarn start
-```
+## What I Chose and Why
 
-This will start both the Flask backend and React frontend concurrently.
+### Frontend
 
-## Deployment to Fly.io
+**Material-UI (MUI)**
+- I went with MUI because I know it well and it makes HTML layout simpler, semantically accurate and more reliable
+- It's pretty customizable and gives you consistent design patterns
 
-### Prerequisites
+**React Query**
+- This is my main tool for API calls and data fetching since it handles caching and state management automatically
+- It does background refetching and the stale-while-revalidate pattern out of the box
+- Handles loading states, error states, and retry logic so no need for additional boilerplate and customized error handling
 
-- Fly.io CLI installed (`flyctl`)
-- Fly.io account
+**Vitest**
+- Quick, modern testing framework that works great with TypeScript and integration with Vite
+- Much better DX than some other testing frameworks I've tried
 
-### Deployment Steps
+### Backend
 
-1. **Login to Fly.io** (if not already logged in):
-```bash
-flyctl auth login
-```
+**Flask**
+- I picked Flask because it's lightweight and flexible (also widely used and reliable)
+- Easy to extend and maintain, good documentation
+- I am currently trying to expanding my Python skills, so used the opportunity to work  more with it
 
-2. **Create the app** (first time only):
-```bash
-flyctl apps create event-finder-app
-```
+**Why I separated server and client**
+- It makes more sense to keeps things separate and organized (as well as using two different technologies that fit the two different use cases)
+- I can scale frontend and backend independently, and add to BE security if needed
+- Better error handling and debugging in case things go wrong
 
-3. **Deploy the application**:
-```bash
-flyctl deploy
-```
+### Deployment
 
-### Configuration
+**Fly.io**
+- I've used Fly.io before and it's worked well for me
+- Great for full-stack apps
+- Simple deployment process that actually debugs (and does it well)
 
-The app is configured with:
-- **Port**: 8080 (configured in `fly.toml`)
-- **Region**: Frankfurt (fra) - can be changed in `fly.toml`
-- **Memory**: 256MB
-- **CPU**: 1 shared CPU
-
-### Environment Variables
-
-The following environment variables are set:
-- `PORT`: 8080
-- `FLASK_APP`: app.py
-- `FLASK_ENV`: production
-
-### Build Process
-
-The Dockerfile handles:
-1. Installing Python dependencies
-2. Installing Node.js dependencies
-3. Building the React frontend
-4. Running the Flask application
-
-### Troubleshooting
-
-If you encounter build issues:
-
-1. **Lockfile issues**: The Dockerfile now installs dependencies without `--frozen-lockfile` to allow updates
-2. **Node.js version**: The app is configured for Node.js 16+ compatibility
-3. **Memory issues**: The app is configured with 256MB memory, which should be sufficient
-
-### Monitoring
-
-Check your app status:
-```bash
-flyctl status
-```
-
-View logs:
-```bash
-flyctl logs
-```
-
-Open the app:
-```bash
-flyctl open
-```
-
-## Project Structure
-
+### Project Structure
 ```
 top-github-repos/
-├── app.py                 # Flask backend
-├── requirements.txt       # Python dependencies
-├── package.json          # Root Node.js dependencies
-├── frontend/             # React frontend
-│   ├── package.json      # Frontend dependencies
-│   ├── src/              # React source code
-│   └── dist/             # Built frontend (generated)
-├── fly.toml             # Fly.io configuration
-├── Dockerfile           # Docker build configuration
-└── .dockerignore        # Docker ignore file
+├── frontend/                  # React frontend
+│   ├── src/
+│   │   ├── components/        # React components
+│   │   ├── hooks/             # For React Query hooks
+│   │   ├── services/          # API services
+│   │   ├── style/             # Centralized styling
+│   │   └── types.ts           # TS definitions
+│   └── package.json
+├── app.py                      # Flask backend
+├── requirements.txt            # Python dependencies
+└── fly.toml                   # Fly.io configuration
 ```
 
-## API Endpoints
+### How I separated things
 
-- `GET /api/github-repos` - Fetches top Github repos
-- `GET /` - Serves the React frontend
+**Logical grouping:**
+- **Components**: Each component gets its own file and test so I can reuse them
+- **Hooks**: Custom React Query hook for data fetching
+- **Services**: API calls separated from components
+- **Styles**: I moved all styles into the `style/` folder instead of using inline `sx` props. Easy to maintain and update global styles (not always the best choice, but tried to fit the "good class naming" requirement). Used REM over PX for more responsiveness and accessibility.
+- **Types**: Shared TypeScript definitions
+
+**Why this structure **
+- Easy to find, debug and modify specific functionality
+- Clear separation of concerns between data, presentation, and business logic
+- Very easy to understand and maintain, and scales well
+
+## My Testing Approach
+
+### How I handle testing
+- **Unit tests**: I test individual components in isolation with mocked dependencies
+- **Basic component rendering tests for dummy components**: Making sure simpler components render without crashing
+- **UI tests**: Testing button clicks, form inputs, and user actions
+- **API service tests**: Testing the service layer with mocked responses
+- **Minimal coverage**: I focus on critical user paths rather than trying to get 100% coverage
+
+### Error handling
+- **Frontend**: React Query gives me very simple error handling with retry logic
+- **Backend**: Flask error handling with proper HTTP status codes
+- **User Experience**: Clear error messages and fallback states
+- **Fallback behavior**: App keeps working even when some features fail
+
+## Other Considerations
+
+**Languages Field**: I considered improving the languages field by using GitHub's additional API endpoint that fetches ALL languages used in a repository (through the `languages_url` property from the API response). However, this endpoint had rate limiting issues, so would have possibly added to inconsistent and unreliable app functionality. Using the primary language from the main response seemed more straightforward for our use case.
+- **Testing**: I chose a simple testing approach for our simpler components that don't contain much or any business logic. More testing could have been added there but again, this seemed suitable for the current use case.
+
+

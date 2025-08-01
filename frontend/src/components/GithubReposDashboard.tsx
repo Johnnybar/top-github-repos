@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
 import {
   Box,
   Container,
@@ -8,15 +7,17 @@ import {
   useMediaQuery,
   useTheme,
   Button,
+  Alert,
+  AlertTitle,
 } from "@mui/material";
-import { Star } from "@mui/icons-material";
+import { Star, Refresh } from "@mui/icons-material";
 import { GithubReposData, RepoInfoState } from "../types";
 import { RepoDetailsDialog } from "./RepoDetailsDialog";
 import { Search } from "./Search";
 import { LanguageFilter } from "./LanguageFilter";
 import { ReposTable } from "./ReposTable";
-import { styles } from "../styles";
-import { fetchGithubRepos } from "../api";
+import { styles } from "../style";
+import { useGithubRepos } from "../hooks/useGithubRepos";
 import { isNil, isEmpty } from "ramda";
 
 export const GithubReposDashboard = () => {
@@ -57,12 +58,7 @@ export const GithubReposDashboard = () => {
   };
 
   // React Query for fetching repos
-  const { data: githubReposData = [], isLoading, error } = useQuery<GithubReposData[]>({
-    queryKey: ['github-repos'],
-    queryFn: fetchGithubRepos,
-    staleTime: 5 * 60 * 1000, // 5 minutes
-    retry: 1,
-  });
+  const { data: githubReposData = [], isLoading, error, isError } = useGithubRepos();
 
   // Extract languages whenever data changes
   useEffect(() => {
@@ -114,6 +110,31 @@ export const GithubReposDashboard = () => {
       {isLoading ? (
         <Box sx={styles.loadingBox}>
           <CircularProgress color="inherit" />
+        </Box>
+      ) : isError ? (
+        <Box sx={styles.loadingBox}>
+          <Alert 
+            severity="warning" 
+            sx={styles.errorAlert}
+            action={
+              <Button 
+                color="inherit" 
+                size="small" 
+                startIcon={<Refresh />}
+                onClick={() => window.location.reload()}
+              >
+                Retry
+              </Button>
+            }
+          >
+            <AlertTitle>Unable to load repository data</AlertTitle>
+            {error instanceof Error ? error.message : 'An unexpected error occurred'}
+            {githubReposData.length > 0 && (
+              <Box sx={styles.errorMessageBox}>
+                Showing cached data from previous session. Some information may be outdated.
+              </Box>
+            )}
+          </Alert>
         </Box>
       ) : (
         <Box sx={styles.mainBox(isMobile)}>
