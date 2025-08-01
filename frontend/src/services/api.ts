@@ -11,15 +11,15 @@ export const fetchGithubRepos = async (): Promise<GithubReposData[]> => {
     }
 
     const text = await response.text();
-    const data: GithubApiResponse = JSON.parse(text);
+    const data: { items: GithubReposData[] } = JSON.parse(text);
 
     // Transform the API response to match data structure
-    const filteredData = data.items.map((item, index) => ({
+    const filteredData = data.items.map((item: GithubReposData, index) => ({
       id: !isNil(item.id) ? item.id : index,
       name: item.name,
       full_name: item.full_name || `${item.owner?.html_url?.split('/').pop() || 'unknown'}/${item.name}`,
       description: item.description || undefined,
-      url: item.clone_url,
+      clone_url: item.clone_url, 
       stargazers_count: item.stargazers_count,
       language: !isNil(item.language) ? item.language : 'N/A',
       watchers_count: item.watchers_count,

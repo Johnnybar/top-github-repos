@@ -1,4 +1,4 @@
-import { Box, Typography, Chip, IconButton, Tooltip, Link } from "@mui/material";
+import { Box, Typography, Chip, IconButton, Tooltip } from "@mui/material";
 import { Star, StarBorder, StarRate, ContentCopy, OpenInNew } from "@mui/icons-material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { GithubReposData, RepoInfoState } from "../types";
@@ -89,10 +89,10 @@ export const ReposTable = ({
       ),
     },
     {
-      field: "url",
+      field: "clone_url",
       headerName: "URL",
       flex: 1,
-      minWidth: 150,
+      minWidth: isMobile ? 200 : 150,
       sortable: false,
       filterable: false,
       renderCell: (params) => (
@@ -105,9 +105,10 @@ export const ReposTable = ({
               ...styles.urlCellText
             }}
           >
+            {/* Display URL without https:// for better readability */}
             {params.value.replace('https://', '')}
           </Typography>
-          <Box sx={styles.urlButtonsContainer}>
+          <Box sx={isMobile ? styles.urlButtonsContainerMobile : styles.urlButtonsContainer}>
             <Tooltip title={copyFeedback[params.row.id] ? "Copied!" : "Copy URL"}>
               <IconButton
                 size="small"
@@ -139,7 +140,7 @@ export const ReposTable = ({
     {
       field: "language",
       headerName: "Language",
-      width: 120,
+      width: isMobile ? 80 : 120, 
       filterable: false,
       renderCell: (params) => (
         <Chip size="small" label={params.value} variant="outlined" />
@@ -148,7 +149,7 @@ export const ReposTable = ({
     {
       field: "stargazers_count",
       headerName: "Stars",
-      width: 120,
+      width: isMobile ? 80 : 120,
       filterable: false,
       renderCell: (params) => (
         <Chip
@@ -162,7 +163,7 @@ export const ReposTable = ({
     {
       field: "owner.avatar_url",
       headerName: "Avatar",
-      width: 100,
+      width: isMobile ? 60 : 100,
       sortable: false,
       filterable: false,
       align: "center",
@@ -178,7 +179,7 @@ export const ReposTable = ({
     {
       field: "open_issues_count",
       headerName: "Open Issues",
-      width: 120,
+      width: isMobile ? 80 : 120,
       filterable: false,
     },
   ];

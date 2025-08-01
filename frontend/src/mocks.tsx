@@ -6,7 +6,7 @@ export const githubReposMock: GithubReposMock = {
       {
           "id": 78483432,
           "full_name": "TranslucentTB/TranslucentTB",
-          "url": "https://api.github.com/repos/TranslucentTB/TranslucentTB",
+          "clone_url": "https://api.github.com/repos/TranslucentTB/TranslucentTB",
           "stargazers_count": 17590,
           "language": "C++",
           "name": "TranslucentTB",
@@ -21,7 +21,7 @@ export const githubReposMock: GithubReposMock = {
       {
           "id": 78544867,
           "full_name": "opendigg/awesome-github-wechat-weapp",
-          "url": "https://api.github.com/repos/opendigg/awesome-github-wechat-weapp",
+          "clone_url": "https://api.github.com/repos/opendigg/awesome-github-wechat-weapp",
           "stargazers_count": 9271,
           "language": null,
           "name": "awesome-github-wechat-weapp",
@@ -36,7 +36,7 @@ export const githubReposMock: GithubReposMock = {
       {
           "id": 78544867,
           "full_name": "opendigg/awesome-github-wechat-weapp",
-          "url": "https://api.github.com/repos/opendigg/awesome-github-wechat-weapp",
+          "clone_url": "https://api.github.com/repos/opendigg/awesome-github-wechat-weapp",
           "stargazers_count": 9271,
           "language": null,
           "name": "awesome-github-wechat-weapp",
@@ -51,7 +51,7 @@ export const githubReposMock: GithubReposMock = {
       {
           "id": 78494737,
           "full_name": "Meituan-Dianping/walle",
-          "url": "https://api.github.com/repos/Meituan-Dianping/walle",
+          "clone_url": "https://api.github.com/repos/Meituan-Dianping/walle",
           "stargazers_count": 6838,
           "language": "Java",
           "name": "walle",
@@ -66,7 +66,7 @@ export const githubReposMock: GithubReposMock = {
       {
           "id": 78566876,
           "full_name": "prettier/prettier-vscode",
-          "url": "https://api.github.com/repos/prettier/prettier-vscode",
+          "clone_url": "https://api.github.com/repos/prettier/prettier-vscode",
           "stargazers_count": 5321,
           "language": "TypeScript",
           "name": "prettier-vscode",
@@ -81,7 +81,7 @@ export const githubReposMock: GithubReposMock = {
       {
           "id": 78492853,
           "full_name": "wux-weapp/wux-weapp",
-          "url": "https://api.github.com/repos/wux-weapp/wux-weapp",
+          "clone_url": "https://api.github.com/repos/wux-weapp/wux-weapp",
           "stargazers_count": 5067,
           "language": "JavaScript",
           "name": "wux-weapp",
@@ -96,7 +96,7 @@ export const githubReposMock: GithubReposMock = {
       {
           "id": 78498440,
           "full_name": "lando/lando",
-          "url": "https://api.github.com/repos/lando/lando",
+          "clone_url": "https://api.github.com/repos/lando/lando",
           "stargazers_count": 4180,
           "language": null,
           "name": "lando",
@@ -111,7 +111,7 @@ export const githubReposMock: GithubReposMock = {
       {
           "id": 78546446,
           "full_name": "Blankj/awesome-comment",
-          "url": "https://api.github.com/repos/Blankj/awesome-comment",
+          "clone_url": "https://api.github.com/repos/Blankj/awesome-comment",
           "stargazers_count": 2528,
           "language": null,
           "name": "awesome-comment",
@@ -126,7 +126,7 @@ export const githubReposMock: GithubReposMock = {
       {
           "id": 78508757,
           "full_name": "SeanNaren/deepspeech.pytorch",
-          "url": "https://api.github.com/repos/SeanNaren/deepspeech.pytorch",
+          "clone_url": "https://api.github.com/repos/SeanNaren/deepspeech.pytorch",
           "stargazers_count": 2127,
           "language": "Python",
           "name": "deepspeech.pytorch",
@@ -141,7 +141,7 @@ export const githubReposMock: GithubReposMock = {
       {
           "id": 78494786,
           "full_name": "ermongroup/cs228-notes",
-          "url": "https://api.github.com/repos/ermongroup/cs228-notes",
+          "clone_url": "https://api.github.com/repos/ermongroup/cs228-notes",
           "stargazers_count": 1965,
           "language": "SCSS",
           "name": "cs228-notes",
@@ -156,7 +156,7 @@ export const githubReposMock: GithubReposMock = {
       {
           "id": 78570728,
           "full_name": "PokemonUnity/PokemonUnity",
-          "url": "https://api.github.com/repos/PokemonUnity/PokemonUnity",
+          "clone_url": "https://api.github.com/repos/PokemonUnity/PokemonUnity",
           "stargazers_count": 1881,
           "language": "C#",
           "name": "PokemonUnity",
@@ -209,7 +209,7 @@ export const mockRepos: GithubReposData[] = [
     name: 'test-repo',
     full_name: 'test-owner/test-repo',
     description: 'A test repository',
-    url: 'https://github.com/test-owner/test-repo',
+    clone_url: 'https://github.com/test-owner/test-repo',
     language: 'JavaScript',
     stargazers_count: 100,
     watchers_count: 50,

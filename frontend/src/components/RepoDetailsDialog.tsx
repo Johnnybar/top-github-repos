@@ -73,11 +73,12 @@ export const RepoDetailsDialog = ({
                           {repo.full_name}
                         </Typography>
                         <Link
-                          href={repo.url}
+                          href={repo.clone_url}
                           target="_blank"
+                          rel="noopener noreferrer"
                           sx={styles.dialogLink}
                         >
-                          {repo.url}
+                          {repo.clone_url}
                         </Link>
                       </Box>
 

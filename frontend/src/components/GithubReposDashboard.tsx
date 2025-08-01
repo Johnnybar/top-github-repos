@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import {
-  Box,
   Container,
+  Box,
   Paper,
-  CircularProgress,
-  useMediaQuery,
-  useTheme,
   Button,
+  CircularProgress,
   Alert,
   AlertTitle,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import { Star, Refresh } from "@mui/icons-material";
 import { GithubReposData, RepoInfoState } from "../types";
@@ -78,10 +78,12 @@ export const GithubReposDashboard = () => {
   useEffect(() => {
     if (Array.isArray(githubReposData) && !isEmpty(githubReposData)) {
       let filtered = githubReposData.filter((repo: GithubReposData) => {
+        // Search across name, full_name, and language fields (case-insensitive)
         const matchesSearch = (!isNil(repo.name) && repo.name.toLowerCase().includes(searchTerm.toLowerCase())) ||
           (!isNil(repo.full_name) && repo.full_name.toLowerCase().includes(searchTerm.toLowerCase())) ||
           (!isNil(repo.language) && repo.language.toLowerCase().includes(searchTerm.toLowerCase()));
         
+        // Filter by selected languages (show all if none selected)
         const matchesLanguage = isEmpty(selectedLanguages) || (!isNil(repo.language) && selectedLanguages.includes(repo.language));
         
         // If showing starred only, also check if repo is starred

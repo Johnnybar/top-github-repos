@@ -1,12 +1,12 @@
 // GitHub repository data type - only includes properties actually used in the application
 export interface GithubReposData {
-  id: number
+  id?: number
   name: string
-  full_name: string
-  description?: string
+  full_name?: string
+  description?: string | null
   clone_url: string
   stargazers_count: number
-  language: string | null
+  language?: string | null
   watchers_count: number
   open_issues_count: number
   owner: {

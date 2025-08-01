@@ -78,7 +78,8 @@ export const styles = {
   // ReposTable.tsx styles
   dataGridContainer: (isMobile: boolean) => ({
     flexGrow: 1,
-    height: isMobile ? "18.75rem" : "auto",
+    height: isMobile ? "calc(100vh - 200px)" : "auto",
+    minHeight: isMobile ? "400px" : "auto"
   }),
   dataGrid: {
     border: "none",
@@ -99,7 +100,7 @@ export const styles = {
     },
   },
   caption: {
-    ml: 2,
+    ml: 3,
   },
 
   // ReposTable.tsx cell styles
@@ -140,6 +141,11 @@ export const styles = {
   urlButtonsContainer: {
     display: 'flex',
     gap: 0.5,
+  },
+  urlButtonsContainerMobile: {
+    display: 'flex',
+    gap: 1, 
+    minWidth: 'fit-content', // Ensure buttons don't get squeezed
   },
 
   // RepoDetailsDialog.tsx styles
