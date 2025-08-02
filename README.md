@@ -26,7 +26,7 @@ npm install
 npm run start
 ```
 
-Or view online @ [https://top-repos.fly.dev/](https://top-repos.fly.dev/){:target="_blank"}  
+Or view online @ [https://top-repos.fly.dev/](https://top-repos.fly.dev/)  
 
 ## What I Chose and Why
 
