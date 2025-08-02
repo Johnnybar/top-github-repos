@@ -25,6 +25,7 @@ npm install
 # Start the server + Frontend on root
 npm run start
 ```
+Or view online @ [https://top-repos.fly.dev/](url)
 
 ## What I Chose and Why
 
