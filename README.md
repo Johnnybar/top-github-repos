@@ -111,7 +111,9 @@ top-github-repos/
 
 ## Other Considerations
 
-**Languages Field**: I considered improving the languages field by using GitHub's additional API endpoint that fetches ALL languages used in a repository (through the `languages_url` property from the API response). However, this endpoint had rate limiting issues, so would have possibly added to inconsistent and unreliable app functionality. 
+**Languages Field**: I considered improving the languages field by using GitHub's additional API endpoint that fetches ALL languages used in a repository (through the `languages_url` property from the API response). However, this endpoint had rate limiting issues, so would have possibly added to inconsistent and unreliable app functionality.
+
 **Testing**: I chose a simple testing approach for our simpler components that don't contain much or any business logic. More testing could have been added but again, this seemed suitable for the current use case.
+
 **Using AI**: I used Cursor as my IDE which allowed more support in troubleshooting, component/test refactoring, deployment on fly.io and some manual labor (removing unused imports, "find and replace" commands, comments etc.). 
 
