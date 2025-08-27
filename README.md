@@ -2,7 +2,7 @@
 
 ## How to Run the App
 
-### Requirementss
+### Requirements
 - Python 3.8+
 - Node.js 16+
 - npm or yarn
