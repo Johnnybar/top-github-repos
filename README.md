@@ -31,7 +31,8 @@ cd frontend
 npm install
 ```
 ### 4. Start
-# Start the server + Frontend on root
+### Start the server + Frontend on root
+```bash
 npm run start
 ```
 
