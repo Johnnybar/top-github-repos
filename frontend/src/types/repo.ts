@@ -9,6 +9,7 @@ export interface GithubReposData {
   language?: string | null
   watchers_count: number
   open_issues_count: number
+  isStarred?: boolean
   owner: {
     avatar_url: string
     html_url: string
@@ -31,4 +32,5 @@ export interface RepoInfoState {
 // Mock data type for testing
 export interface GithubReposMock {
   items: GithubReposData[]
-} 
+}
+

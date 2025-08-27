@@ -4,78 +4,87 @@ import { LanguageFilter } from './LanguageFilter';
 
 describe('LanguageFilter Component', () => {
   const mockOnLanguageChange = vi.fn();
-  const mockOnClearAll = vi.fn();
-  const availableLanguages = ['JavaScript', 'TypeScript', 'Python', 'Java'];
 
   it('should render language filter with available languages', () => {
     render(
       <LanguageFilter
-        selectedLanguages={[]}
-        availableLanguages={availableLanguages}
+        selectedLanguage=""
         onLanguageChange={mockOnLanguageChange}
-        onClearAll={mockOnClearAll}
       />
     );
     
-    const languageSelect = screen.getByLabelText('Language');
+    const languageSelect = screen.getByRole('combobox');
     expect(languageSelect).toBeInTheDocument();
   });
 
-  it('should show selected languages as chips', () => {
+  it('should show "All Languages" as default option', () => {
     render(
       <LanguageFilter
-        selectedLanguages={['JavaScript', 'Python']}
-        availableLanguages={availableLanguages}
+        selectedLanguage=""
         onLanguageChange={mockOnLanguageChange}
-        onClearAll={mockOnClearAll}
       />
     );
     
-    expect(screen.getByText('JavaScript')).toBeInTheDocument();
-    expect(screen.getByText('Python')).toBeInTheDocument();
+    // Open the select dropdown
+    const languageSelect = screen.getByRole('combobox');
+    fireEvent.mouseDown(languageSelect);
+    
+    // Check if "All Languages" is in the document
+    expect(screen.getByText('All Languages')).toBeInTheDocument();
   });
 
-  it('should show clear all button when languages are selected', () => {
+  it('should show clear button when a language is selected', () => {
     render(
       <LanguageFilter
-        selectedLanguages={['JavaScript']}
-        availableLanguages={availableLanguages}
+        selectedLanguage="JavaScript"
         onLanguageChange={mockOnLanguageChange}
-        onClearAll={mockOnClearAll}
       />
     );
     
-    const clearButton = screen.getByText('Clear All');
+    const clearButton = screen.getByText('Clear');
     expect(clearButton).toBeInTheDocument();
   });
 
-  it('should not show clear all button when no languages are selected', () => {
+  it('should not show clear button when no language is selected', () => {
     render(
       <LanguageFilter
-        selectedLanguages={[]}
-        availableLanguages={availableLanguages}
+        selectedLanguage=""
         onLanguageChange={mockOnLanguageChange}
-        onClearAll={mockOnClearAll}
       />
     );
     
-    const clearButton = screen.queryByText('Clear All');
+    const clearButton = screen.queryByText('Clear');
     expect(clearButton).not.toBeInTheDocument();
   });
 
-  it('should call onClearAll when clear button is clicked', () => {
+  it('should call onLanguageChange when language is selected', () => {
     render(
       <LanguageFilter
-        selectedLanguages={['JavaScript']}
-        availableLanguages={availableLanguages}
+        selectedLanguage=""
         onLanguageChange={mockOnLanguageChange}
-        onClearAll={mockOnClearAll}
       />
     );
     
-    const clearButton = screen.getByText('Clear All');
+    const languageSelect = screen.getByRole('combobox');
+    fireEvent.mouseDown(languageSelect);
+    
+    const option = screen.getByText('JavaScript');
+    fireEvent.click(option);
+    
+    expect(mockOnLanguageChange).toHaveBeenCalledWith('JavaScript');
+  });
+
+  it('should call onLanguageChange with empty string when clear is clicked', () => {
+    render(
+      <LanguageFilter
+        selectedLanguage="JavaScript"
+        onLanguageChange={mockOnLanguageChange}
+      />
+    );
+    
+    const clearButton = screen.getByText('Clear');
     fireEvent.click(clearButton);
     
-    expect(mockOnClearAll).toHaveBeenCalled();
+    expect(mockOnLanguageChange).toHaveBeenCalledWith('');
   });
 }); 

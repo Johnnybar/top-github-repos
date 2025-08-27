@@ -7,13 +7,21 @@
 - Node.js 16+
 - npm or yarn
 
-### Backend Setup
+### Setup
+### 1. Create and run venv environment by running
+```
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+
+### 2. Backend Setup
 ```bash
 # Install Python dependencies
 pip install -r requirements.txt
 ```
 
-### Frontend Setup
+### 3. Frontend Setup
 ```bash
 # Install root dependencies
 npm install
@@ -21,7 +29,8 @@ npm install
 # Frontend dependencies
 cd frontend
 npm install
-
+```
+### 4. Start
 # Start the server + Frontend on root
 npm run start
 ```

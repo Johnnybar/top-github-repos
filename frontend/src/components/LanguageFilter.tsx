@@ -4,75 +4,65 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  Checkbox,
-  ListItemText,
-  OutlinedInput,
-  Chip,
   Button,
+  OutlinedInput,
 } from "@mui/material";
 import { styles } from "../style";
 
 interface LanguageFilterProps {
-  selectedLanguages: string[];
+  selectedLanguage: string;
+  onLanguageChange: (language: string) => void;
   availableLanguages: string[];
-  onLanguageChange: (languages: string[]) => void;
-  onClearAll: () => void;
 }
 
+/**
+ * LanguageFilter component provides a dropdown to filter repositories by programming language
+ * @param selectedLanguage - Currently selected language filter
+ * @param onLanguageChange - Callback function when language selection changes
+ * @returns JSX element containing the language filter dropdown
+ */
 export const LanguageFilter = ({
-  selectedLanguages,
-  availableLanguages,
+  selectedLanguage,
   onLanguageChange,
-  onClearAll,
+  availableLanguages,
 }: LanguageFilterProps) => {
+  // Use available languages from data, fallback to common languages if none available
+  const languages = availableLanguages.length > 0 ? availableLanguages : [
+    "JavaScript", "TypeScript", "Python", "Java", "C++", "C#", "Go", "Rust", "PHP", "Ruby"
+  ];
+
+  const handleClear = () => {
+    onLanguageChange("");
+  };
+
   return (
     <Box sx={styles.filtersBox}>
       <FormControl size="small" sx={styles.formControl}>
         <InputLabel>Language</InputLabel>
         <Select
-          multiple
-          value={selectedLanguages}
+          value={selectedLanguage}
           label="Language"
-          onChange={(e) =>
-            onLanguageChange(
-              typeof e.target.value === "string"
-                ? e.target.value.split(",")
-                : e.target.value
-            )
-          }
-          renderValue={(selected) => (
-            <Box sx={styles.languageChipsContainer}>
-              {selected.map((value) => (
-                <Chip key={value} label={value} />
-              ))}
-            </Box>
-          )}
+          onChange={(e) => onLanguageChange(e.target.value)}
           input={<OutlinedInput label="Language" />}
-          MenuProps={{
-            PaperProps: {
-              style: {
-                maxHeight: 200,
-                width: 250,
-              },
-            },
-          }}
         >
-          {availableLanguages.map((language) => (
+          <MenuItem value="">
+            <em>All Languages</em>
+          </MenuItem>
+          {languages.map((language) => (
             <MenuItem key={language} value={language}>
-              <Checkbox checked={selectedLanguages.includes(language)} />
-              <ListItemText primary={language} />
+              {language}
             </MenuItem>
           ))}
         </Select>
       </FormControl>
-      {selectedLanguages.length > 0 && (
+      {selectedLanguage && (
         <Button
           size="small"
           variant="outlined"
-          onClick={onClearAll}
+          onClick={handleClear}
           sx={styles.clearButton}
         >
-          Clear All
+          Clear
         </Button>
       )}
     </Box>
