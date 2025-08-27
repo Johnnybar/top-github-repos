@@ -8,9 +8,7 @@ import { GithubApiResponse } from "../types/repo";
  * @param language - Programming language to filter repositories
  * @returns Query result object containing repositories data, loading state, and error information
  */
-export const useGithubRepos = (searchQuery: string, language: string) => {
-  console.log({searchQuery, language});
-  
+export const useGithubRepos = (searchQuery: string, language: string) => {  
   return useQuery<GithubApiResponse>({
     queryKey: ['github-repos', searchQuery], // Remove language from queryKey for client-side filtering
     queryFn: () => fetchGithubRepos(searchQuery, language),
