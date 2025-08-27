@@ -30,7 +30,6 @@ export const fetchGithubRepos = async (
     }
 
     const data: GithubApiResponse = await response.json();
-    console.log({data});
     
     // Transform the API response to ensure data consistency
     const transformedData: GithubApiResponse = {
@@ -51,7 +50,6 @@ export const fetchGithubRepos = async (
         },
       })),
     };
-    console.log({transformedData});
     
     return transformedData;
   } catch (error) {
