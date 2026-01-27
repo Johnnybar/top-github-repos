@@ -13,7 +13,7 @@
         "start:frontend": "cd frontend && npm run dev"
     },
     "devDependencies": {
-        "eslint-plugin-prettier": "^5.0.0"
+        "eslint-plugin-prettier": "^5.5.5"
     },
     "engines": {
         "node": ">=16.0.0"
