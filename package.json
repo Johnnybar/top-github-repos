@@ -5,7 +5,7 @@
         "@emotion/styled": "^11.11.0",
         "@mui/icons-material": "^5.15.0",
         "react-router-dom": "^6.20.0",
-        "concurrently": "^8.2.2"
+        "concurrently": "^9.2.1"
     },
     "scripts": {
         "start": "echo 'Checking concurrently...' && ls -la node_modules/.bin && npx concurrently \"npm run start:backend\" \"npm run start:frontend\"",
