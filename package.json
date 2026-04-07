@@ -4,7 +4,7 @@
         "@emotion/react": "^11.11.0",
         "@emotion/styled": "^11.11.0",
         "@mui/icons-material": "^5.15.0",
-        "react-router-dom": "^6.20.0",
+        "react-router-dom": "^7.14.0",
         "concurrently": "^8.2.2"
     },
     "scripts": {
